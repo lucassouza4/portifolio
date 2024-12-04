@@ -1,0 +1,13 @@
+#projects h2 {
+  font-size: xx-large;
+  text-align: center;
+  height: 100%;
+}
+.projects {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}

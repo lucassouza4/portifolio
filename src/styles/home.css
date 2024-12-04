@@ -1,0 +1,42 @@
+.home {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  height: 100%;
+}
+
+.apresentacao {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.imagePerfil {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+}
+
+.home h1 {
+  font-size: xx-large;
+}
+
+.home p {
+  padding: 1rem;
+  font-size: large;
+}
+
+.home a {
+  text-decoration: none;
+  padding: 0.5rem;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
