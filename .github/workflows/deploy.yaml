@@ -44,8 +44,6 @@ jobs:
       - name: Set environment variables
         run: |
           echo "VITE_GITHUB_TOKEN=${{ secrets.VITE_GITHUB_TOKEN }}" >> $GITHUB_ENV
-          echo "VITE_GITHUB_USERNAME=${{ secrets.VITE_GITHUB_USERNAME }}" >> $GITHUB_ENV
-          echo "VITE_LINKEDIN_USERNAME=${{ secrets.VITE_LINKEDIN_USERNAME }}" >> $GITHUB_ENV
 
       - name: Build
         run: npm run build

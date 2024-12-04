@@ -1,15 +1,12 @@
 import "../styles/footer.css";
 
-const githubUsername = import.meta.env.VITE_GITHUB_USERNAME;
-const linkedInUsername = import.meta.env.VITE_LINKEDIN_USERNAME;
-
 function Footer() {
   return (
     <footer className="footer">
       <p>© 2024 Lucas Souza. Todos os direitos reservados.</p>
       <p>
         <a
-          href={`https://github.com/${githubUsername}`}
+          href="https://github.com/lucassouza4"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -17,7 +14,7 @@ function Footer() {
         </a>{" "}
         |{" "}
         <a
-          href={`https://www.linkedin.com/in/${linkedInUsername}/`}
+          href="https://www.linkedin.com/in/lucas-silva-969b03169/"
           target="_blank"
           rel="noopener noreferrer"
         >

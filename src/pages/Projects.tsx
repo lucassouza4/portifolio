@@ -21,7 +21,6 @@ interface GitHubLanguages {
 }
 
 const token = import.meta.env.VITE_GITHUB_TOKEN;
-const username = import.meta.env.VITE_GITHUB_USERNAME;
 
 function Projects() {
   const page = 1;
@@ -30,7 +29,7 @@ function Projects() {
 
   useEffect(() => {
     fetch(
-      `https://api.github.com/users/${username}/repos?per_page=${perPage}&page=${page}`,
+      `https://api.github.com/users/lucassouza4/repos?per_page=${perPage}&page=${page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`, // Adicionando o token no cabeçalho
