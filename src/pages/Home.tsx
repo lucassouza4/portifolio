@@ -21,8 +21,6 @@ function Home() {
           <b>C#, TypeScript, Node, Angular, SQL, noSQL, Docker</b>, entre outras
           tecnologias.
         </p>
-
-        <a href="#projects">Veja meus projetos</a>
       </div>
     </section>
   );
