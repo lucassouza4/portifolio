@@ -36,6 +36,11 @@ jobs:
           VITE_GITHUB_USERNAME: ${{ secrets.VITE_GITHUB_USERNAME }}
           VITE_LINKEDIN_USERNAME: ${{ secrets.VITE_LINKEDIN_USERNAME }}
 
+      - name: Set up Git user from GitHub context
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
         run: |
           npm install -g gh-pages
