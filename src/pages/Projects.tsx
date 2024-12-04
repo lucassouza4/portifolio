@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 import "../styles/projects.css";
+import cSharp from "../images/c-sharp.png";
+import react from "../images/react-js.png";
+import node from "../images/Node.js_logo.svg";
 
 // Definindo os tipos para o projeto e linguagens
 interface GitHubProject {
@@ -19,9 +22,6 @@ interface GitHubLanguages {
 
 const token = import.meta.env.VITE_GITHUB_TOKEN;
 const username = import.meta.env.VITE_GITHUB_USERNAME;
-const cSharp = "src/images/c-sharp.png";
-const react = "src/images/react-js.png";
-const node = "src/images/Node.js_logo.svg";
 
 function Projects() {
   const page = 1;

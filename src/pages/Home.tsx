@@ -1,13 +1,11 @@
 import "../styles/home.css";
+import image from "../images/_P280177-Enhanced-NR.jpg";
 
 function Home() {
   return (
     <section id="home" className="home">
       <div className="apresentacao">
-        <img
-          className="imagePerfil"
-          src="src/images/_P280177-Enhanced-NR.jpg"
-        ></img>
+        <img className="imagePerfil" src={image}></img>
         <h1>Olá, eu sou o Lucas!</h1>
       </div>
       <div className="apresentacao">
