@@ -12,15 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up SSH key for GitHub access
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -36,12 +27,9 @@ jobs:
           VITE_GITHUB_USERNAME: ${{ secrets.VITE_GITHUB_USERNAME }}
           VITE_LINKEDIN_USERNAME: ${{ secrets.VITE_LINKEDIN_USERNAME }}
 
-      - name: Set up Git user from GitHub context
-        run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-
       - name: Deploy to GitHub Pages
         run: |
-          npm install -g gh-pages
-          gh-pages -d dist
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
