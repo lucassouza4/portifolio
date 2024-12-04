@@ -4,6 +4,7 @@ interface ProjectProps {
   title: string;
   description: string;
   link: string;
+  pageLink: string;
   languages: string[];
   image?: string;
 }
@@ -41,6 +42,18 @@ function ProjectCard(projectProps: ProjectProps) {
         >
           Ver Projeto
         </a>
+        {projectProps.pageLink ? (
+          <a
+            className="button"
+            href={projectProps.pageLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Acessar Projeto
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

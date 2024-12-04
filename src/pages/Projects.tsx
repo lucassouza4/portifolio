@@ -10,6 +10,8 @@ interface GitHubProject {
   name: string;
   description: string;
   html_url: string;
+  page_url: string;
+  has_pages: boolean;
   languages_url: string;
   stargazers_count: number;
   languages?: string[];
@@ -24,7 +26,7 @@ const token = import.meta.env.VITE_GITHUB_TOKEN;
 
 function Projects() {
   const page = 1;
-  const perPage = 100; // Máximo permitido por página
+  const perPage = 100;
   const [projects, setProjects] = useState<GitHubProject[]>([]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function Projects() {
       `https://api.github.com/users/lucassouza4/repos?per_page=${perPage}&page=${page}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`, // Adicionando o token no cabeçalho
+          Authorization: `Bearer ${token}`,
         },
       }
     )
@@ -46,12 +48,34 @@ function Projects() {
               .then((res) => res.json())
               .then((languages: GitHubLanguages) => {
                 const languagesArray = Object.keys(languages); // Linguagens como array
-                return {
-                  ...project,
-                  languages: languagesArray,
-                };
+
+                // Verifica se o projeto tem GitHub Pages e busca a URL se tiver
+                if (project.has_pages) {
+                  return fetch(
+                    `https://api.github.com/repos/lucassouza4/${project.name}/pages`,
+                    {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                    }
+                  )
+                    .then((res) => res.json())
+                    .then((pageData) => {
+                      return {
+                        ...project,
+                        languages: languagesArray,
+                        page_url: pageData.html_url, // Adiciona a URL do GitHub Pages ao projeto
+                      };
+                    });
+                } else {
+                  return {
+                    ...project,
+                    languages: languagesArray,
+                  };
+                }
               });
           });
+
         // Espera todas as promessas se resolverem
         Promise.all(projectsWithLanguages).then((projectsData) =>
           setProjects(projectsData)
@@ -83,6 +107,7 @@ function Projects() {
               link={project.html_url}
               languages={project.languages || []}
               image={SelectImage(project.languages) || ""}
+              pageLink={project.has_pages ? project.page_url : ""}
             />
           ))
         ) : (

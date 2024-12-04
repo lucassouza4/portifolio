@@ -46,7 +46,7 @@
 
 .languageTag {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #1e7734;
   color: white;
   padding: 0.2rem 0.6rem;
   border-radius: 5px;
@@ -57,11 +57,12 @@
 .button {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background-color: #007bff;
+  background-color: #316196;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.2s ease;
+  margin: 2px;
 }
 
 .button:hover {
