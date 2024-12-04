@@ -32,4 +32,4 @@ jobs:
           npm install -g gh-pages
           gh-pages -d dist
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
