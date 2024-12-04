@@ -1,3 +1,4 @@
+/* Estilo base */
 .home {
   display: flex;
   flex-direction: row;
@@ -39,4 +40,50 @@
   background: #007bff;
   color: white;
   border-radius: 5px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 960px) {
+  .home {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .apresentacao {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .imagePerfil {
+    width: 250px;
+    height: 250px;
+  }
+
+  .home h1 {
+    font-size: large;
+  }
+
+  .home p {
+    font-size: medium;
+  }
+}
+
+@media (max-width: 480px) {
+  .imagePerfil {
+    width: 200px;
+    height: 200px;
+  }
+
+  .home h1 {
+    font-size: medium;
+  }
+
+  .home p {
+    font-size: small;
+  }
+
+  .home a {
+    padding: 0.5rem 0.8rem;
+    font-size: small;
+  }
 }

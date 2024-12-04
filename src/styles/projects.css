@@ -3,6 +3,7 @@
   text-align: center;
   height: 100%;
 }
+
 .projects {
   display: flex;
   flex-direction: row;
@@ -10,4 +11,11 @@
   align-content: center;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Estilo responsivo */
+@media (max-width: 960px) {
+  .projects {
+    justify-content: center;
+  }
 }
