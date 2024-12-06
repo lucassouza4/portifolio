@@ -30,58 +30,83 @@ function Projects() {
   const [projects, setProjects] = useState<GitHubProject[]>([]);
 
   useEffect(() => {
-    fetch(
-      `https://api.github.com/users/lucassouza4/repos?per_page=${perPage}&page=${page}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data: GitHubProject[]) => {
-        const projectsWithLanguages = data
-          .filter((project) => project.stargazers_count > 0) // Filtra os projetos com pelo menos uma estrela
-          .map((project) => {
-            // Fazer uma segunda requisição para obter as linguagens
-            return fetch(project.languages_url)
-              .then((res) => res.json())
-              .then((languages: GitHubLanguages) => {
-                const languagesArray = Object.keys(languages); // Linguagens como array
-
-                // Verifica se o projeto tem GitHub Pages e busca a URL se tiver
-                if (project.has_pages) {
-                  return fetch(
-                    `https://api.github.com/repos/lucassouza4/${project.name}/pages`,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  )
-                    .then((res) => res.json())
-                    .then((pageData) => {
-                      return {
-                        ...project,
-                        languages: languagesArray,
-                        page_url: pageData.html_url, // Adiciona a URL do GitHub Pages ao projeto
-                      };
-                    });
-                } else {
-                  return {
-                    ...project,
-                    languages: languagesArray,
-                  };
-                }
-              });
-          });
-
-        // Espera todas as promessas se resolverem
-        Promise.all(projectsWithLanguages).then((projectsData) =>
-          setProjects(projectsData)
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/lucassouza4/repos?per_page=${perPage}&page=${page}`,
+          { headers }
         );
-      });
-  }, []);
+        if (!response.ok) throw new Error("Failed to fetch repositories");
+        const rawData = await response.json();
+        const projects: GitHubProject[] = rawData.map((project: any) => ({
+          name: project.name,
+          description: project.description,
+          html_url: project.html_url,
+          has_pages: project.has_pages,
+          languages_url: project.languages_url,
+          stargazers_count: project.stargazers_count,
+        }));
+
+        return projects;
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        return [];
+      }
+    };
+  
+    const fetchProjectLanguages = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch languages");
+        const languages:GitHubLanguages = await response.json();
+        return Object.keys(languages);
+      } catch (error) {
+        console.error("Error fetching project languages:", error);
+        return [];
+      }
+    };
+  
+    const fetchProjectPage = async (project: GitHubProject) => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/lucassouza4/${project.name}/pages`,
+          { headers }
+        );
+        if (!response.ok) throw new Error("Failed to fetch project page");
+        const pageData = await response.json();
+        return pageData.html_url;
+      } catch (error) {
+        console.error("Error fetching project site:", error);
+        return null;
+      }
+    };
+  
+    const processProjects = async (projects: GitHubProject[]) => {
+      return await Promise.all(
+        projects.map(async (project) => {
+          const languages = await fetchProjectLanguages(project.languages_url);
+          if (project.has_pages) {
+            const page_url = await fetchProjectPage(project);
+            return { ...project, languages, page_url };
+          }
+          return { ...project, languages };
+        })
+      );
+    };
+  
+    const loadProjects = async () => {
+      const projects = await fetchProjects();
+      const filteredProjects = projects.filter((p) => p.stargazers_count > 0);
+      const projectsWithDetails = await processProjects(filteredProjects);
+      setProjects(projectsWithDetails);
+    };
+  
+    loadProjects();
+  }, [perPage, page, token]);  
 
   function SelectImage(linguagens?: string[]): string {
     if (linguagens) {
