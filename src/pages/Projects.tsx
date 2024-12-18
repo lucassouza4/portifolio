@@ -4,6 +4,7 @@ import "../styles/projects.css";
 import cSharp from "../images/c-sharp.png";
 import react from "../images/react-js.png";
 import node from "../images/Node.js_logo.svg";
+import vue from "../images/vue.png"
 
 // Definindo os tipos para o projeto e linguagens
 interface GitHubProject {
@@ -112,9 +113,14 @@ function Projects() {
     if (linguagens) {
       if (linguagens.find((l) => l == "C#")) {
         return cSharp.toString();
-      } else if (linguagens.find((l) => l == "HTML")) {
+      } 
+      else if(linguagens.find((l)=> l == "Vue")){
+        return vue.toString()
+      }
+      else if (linguagens.find((l) => l == "HTML")) {
         return react.toString();
-      } else return node.toString();
+      } 
+      else return node.toString();
     }
     return "";
   }

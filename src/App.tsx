@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Footer from "./components/Footer";
 import "./styles/global.css";
+import Timeline from "./pages/Timeline";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <main>
         <Home />
+        <Timeline />
         <Projects />
       </main>
       <Footer />

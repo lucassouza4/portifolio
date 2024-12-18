@@ -4,7 +4,8 @@ function Header() {
   return (
     <header>
       <nav>
-        <a href="#home">Início</a>
+        {/* <a href="#home">Início</a> */}
+        <a href="#timeline">Experiência</a>
         <a href="#projects">Projetos</a>
         <a
           href={`https://www.linkedin.com/in/${linkedInUsername}/`}
